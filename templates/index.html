@@ -20,16 +20,34 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+        form,fieldset {
+            display: inline;
+        }
     </style>
 </head>
 <body>
+    <div>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <fieldset>
-        <legend>Enter a CSV file of questions to get started</legend>
+        <legend>Upload a CSV file of questions to get started</legend>
         <input type="file" name="file">
         <input type="submit">
         </fieldset>
     </form>
+    <form action="/paste" method="POST" enctype="multipart/form-data">
+        <fieldset>
+        <legend>Paste Excel Data here to get started</legend>
+        <textarea name="data"></textarea>
+        <input type="submit">
+        </fieldset>
+    </form>
+    <form>
+        <fieldset>
+        <legend>Add tags to the questions</legend>
+        <input type="text" oninput=addTags(event) value="#">
+        </fieldset>
+    </form>
+    </div>
     <table>
         <thead>
             {% for column in header %}
@@ -39,7 +57,8 @@
         <tbody>
             {% for row in questions %}
                 <tr>
-                    {% for column in row %}
+                    <td><button class="tags" onclick=copyToClipboard(event)>#</button>{{row[0]}} </td>
+                    {% for column in row[1:] %}
                     <td><button onclick=copyToClipboard(event)>{{column}}</button></td>
                     {% endfor %}
                 </tr>
@@ -50,6 +69,13 @@
         function copyToClipboard(event){
             navigator.clipboard.writeText(event.target.textContent);
             event.target.style.color="red";
+        }
+        function addTags(event) {
+            console.log(event.target.textContent);
+            const tags = document.querySelectorAll(".tags");
+            for (let element of tags) {
+                element.textContent = event.target.value
+            }
         }
     </script>
 </body>
