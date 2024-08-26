@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <fieldset>
+        <legend>Enter a CSV file of questions to get started</legend>
+        <input type="file" name="file">
+        <input type="submit">
+        </fieldset>
+    </form>
+    <table>
+        <thead>
+            {% for column in header %}
+                <th>{{column}}</th>
+            {% endfor %}
+        </thead>
+        <tbody>
+            {% for row in questions %}
+                <tr>
+                    {% for column in row %}
+                    <td><button onclick=copyToClipboard(event)>{{column}}</button></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        function copyToClipboard(event){
+            navigator.clipboard.writeText(event.target.textContent);
+            event.target.style.color="red";
+        }
+    </script>
+</body>
+</html>
