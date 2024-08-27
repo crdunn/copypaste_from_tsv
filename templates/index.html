@@ -27,17 +27,17 @@
 </head>
 <body>
     <div>
+        <form action="/paste" method="POST" enctype="multipart/form-data">
+            <fieldset>
+            <legend>Paste Excel Data here to get started</legend>
+            <textarea name="data"></textarea>
+            <input type="submit">
+            </fieldset>
+        </form>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <fieldset>
-        <legend>Upload a CSV file of questions to get started</legend>
+        <legend>Upload a tab-delimited CSV file of questions to get started</legend>
         <input type="file" name="file">
-        <input type="submit">
-        </fieldset>
-    </form>
-    <form action="/paste" method="POST" enctype="multipart/form-data">
-        <fieldset>
-        <legend>Paste Excel Data here to get started</legend>
-        <textarea name="data"></textarea>
         <input type="submit">
         </fieldset>
     </form>
