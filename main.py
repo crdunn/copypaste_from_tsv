@@ -33,7 +33,7 @@ def read_csv_file(filename):
     questions = [[]]
     try:
         with open(filename) as csvfile:
-            data = csv.reader(csvfile)
+            data = csv.reader(csvfile,delimiter='\t')
             header = next(data,[])
             print(header)
             questions = [row for row in data]
