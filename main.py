@@ -3,6 +3,18 @@ import csv
 
 app = Flask(__name__)
 
+def read_csv_file(filename):
+    header=[]
+    questions = [[]]
+    try:
+        with open(filename) as csvfile:
+            data = csv.reader(csvfile,delimiter="\t")
+            header = next(data,[])
+            questions = [row for row in data]
+    except Exception as e:
+        print(e)
+    return [header, questions]
+
 @app.route("/")
 def render_index():
     data = read_csv_file("./questions.csv")
@@ -27,19 +39,6 @@ def read_paste():
     except Exception as e:
         print(e)
     return redirect("/")
-
-def read_csv_file(filename):
-    header=[]
-    questions = [[]]
-    try:
-        with open(filename) as csvfile:
-            data = csv.reader(csvfile,delimiter='\t')
-            header = next(data,[])
-            print(header)
-            questions = [row for row in data]
-    except Exception as e:
-        print(e)
-    return [header, questions]
 
 if __name__ == "__main__":
     app.run(debug=True)
